@@ -19,30 +19,53 @@ public class Person implements Serializable {
         this.age = age;
     }
 
-    public boolean checkIn(String name, String Surname, int DNI, int age) {
-        boolean check = true;
-        while (check) {
-            if (this.name.equalsIgnoreCase(name)) {
-                check = false;
-            }
-            if (this.surname.equalsIgnoreCase(surname)) {
-                check = false;
-            }
-            if (this.age != age) {
-                check = false;
-            }
+    public boolean checkIn(int DNI) {
+
+
             if (this.DNI!=DNI)
             {
-                check=false;
+               return false;
             }
-        }
 
-        return check;
+
+        return true;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setDNI(int DNI) {
+        this.DNI = DNI;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public int getDNI() {
+        return DNI;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     @Override
     public String toString() {
-        return "name='" + name + '\n' +
+        return "\n name='" + name + '\n' +
                 ", surname='" + surname + '\n' +
                 ", DNI=" + DNI + '\n' +
                 ", age=" + age + '\n';
