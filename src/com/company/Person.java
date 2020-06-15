@@ -3,7 +3,7 @@ package com.company;
 import java.io.Serializable;
 
 public class Person implements Serializable {
-    private static final long serialVersionUID = 8799656478674716653L;
+    private static final long serialVersionUID = 8799656478674716651L;
     private String name;
     private String surname;
     private int DNI;
@@ -65,9 +65,9 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "\n name='" + name + '\n' +
-                ", surname='" + surname + '\n' +
-                ", DNI=" + DNI + '\n' +
-                ", age=" + age + '\n';
+        return "\n Name:" + name + '\n' +
+                "   Surname:" + surname + '\n' +
+                "   DNI:" + DNI + '\n' +
+                "   Age:" + age + '\n';
     }
 }

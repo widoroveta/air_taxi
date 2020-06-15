@@ -11,11 +11,11 @@ public class Frame extends JFrame {
 
 
         setTitle(demo_application);
-        Toolkit miPantalla = Toolkit.getDefaultToolkit();
-        Dimension pantalla = miPantalla.getScreenSize();
-        int altura = pantalla.height;
-        int ancho = pantalla.width;
-        setBounds(ancho / 4, altura / 4, ancho / 2, altura / 2);
+        Toolkit myscreen = Toolkit.getDefaultToolkit();
+        Dimension screenSize= myscreen.getScreenSize();
+        int height = screenSize.height;
+        int width = screenSize.width;
+        setBounds(width / 4, height / 4, width / 2, height / 2);
         //setLayout(null);
      /*   Image miIcono = miPantalla.getImage("src/graficos/martillo.png");
         setIconImage(miIcono);*/
