@@ -7,10 +7,10 @@ import java.awt.*;
 
 public class Frame extends JFrame {
 
-    public Frame(String demo_application) {
+    public Frame(String title) {
 
 
-        setTitle(demo_application);
+        setTitle(title);
         Toolkit myscreen = Toolkit.getDefaultToolkit();
         Dimension screenSize= myscreen.getScreenSize();
         int height = screenSize.height;

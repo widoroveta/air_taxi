@@ -1,9 +1,8 @@
 package com.company;
 
-import Swing.Frame;
+import Swing.*;
 
-import Swing.Register;
-import Swing.Reservation;
+import Swing.Frame;
 import com.sun.xml.internal.ws.spi.db.PropertyAccessor;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonMethod;
@@ -16,34 +15,52 @@ import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
+        String[] m = {"do reservation", "cancel Reservation"};
 
 
-        Frame jf = new Frame("Air taxi");
+        final String PATH_USER = "C:\\air_taxi-guido\\src\\com\\company\\UserFile\\";
+        MapPerson mapPerson = new MapPerson();
+        mapPerson.setMap(PATH_USER);
+        String title = "air taxi";
+        Frame jf = new Frame(title);
+        int inputDni = Integer.parseInt(JOptionPane.showInputDialog(jf.getContentPane(), "Input Dni"));
 
-         jf.add(new Reservation(new Person("jorge","messi ", 2564646 ,2454)),null);
-
+   /*     jf.add(new Reservation(mapPerson.getMap().get(inputDni)));
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.setVisible(true);
-        /*final String PATH_USER = "C:\\air_taxi-guido\\src\\com\\company\\UserFile\\";
-        MapPerson mapPerson=new MapPerson();
-        try {
-            mapPerson.setMap(PATH_USER);
-        } finally {
+        jf.setVisible(true);*/
 
-        }
-        //person.setMap("C:\\air_taxi-guido\\src\\com\\company\\UserFile");
-   //   Frame v = new Frame("Register");
-        String inputDni = JOptionPane.showInputDialog(jf.getContentPane(), "Input Dni");
-        if (mapPerson.getMap().containsKey(Integer.parseInt(inputDni))) {
-            JOptionPane.showMessageDialog(jf.getContentPane(), "Your login was correct" + "");
-            jf.setVisible(true);
-            jf.add(new Reservation());
+
+        if (inputDni == 12345678) {
+            jf.add(new AircraftEntry());
+
             jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            jf.setVisible(true);
         } else {
-            jf.add(new Register());
-            jf.setVisible(true);
-            jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        }*/
+            if (mapPerson.getMap().containsKey(inputDni)) {
+                String[] mmm = {"do reservation", "cancel Reservation"};
+                int i = JOptionPane.showOptionDialog(null, "Do you have do?", "Question", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, mmm, mmm);
+                if (i == 0) {
+                    JOptionPane.showMessageDialog(jf.getContentPane(), "Your login was correct" + "");
+
+                    jf.add(new Reservation(mapPerson.getMap().get(inputDni)));
+                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setVisible(true);
+                } else {
+                    ListReservation listReservation = new ListReservation();
+
+                    jf.add(listReservation);
+                    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    jf.setVisible(true);
+
+                }
+            } else {
+
+                Register register = new Register();
+
+            }
+        }
     }
 }
+
+

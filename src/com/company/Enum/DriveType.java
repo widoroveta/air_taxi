@@ -18,8 +18,6 @@ public enum DriveType {
 
     @Override
     public String toString() {
-        return "DriveType{" +
-                "drive_type='" + drive_type + '\'' +
-                "} " + super.toString();
+        return drive_type ;
     }
 }

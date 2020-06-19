@@ -3,6 +3,7 @@ package com.company;
 import com.company.Person;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -24,32 +25,19 @@ public class MapPerson implements Serializable {
         File file = new File(path);
         ObjectMapper mapper = new ObjectMapper();
         try {
-    /*if(!file.exists()){
-file.createNewFile();
-
-    }*/
             if (file.isDirectory()) {
-                // final String PATH_USER = "C:\\air_taxi-guido\\src\\com\\company\\UserFile\\";
-                //        File file =new File(PATH_USER);
-                //        File[] listfile=file.listFiles();
-                //        for (File f:listfile) {
-                //            System.out.println(f.getName());
-                //        }
                 File[] files = file.listFiles();
                 for (File file1 : files) {
                     Person p = mapper.readValue(file1, Person.class);
                     this.map.put(p.getDNI(), p);
 
                 }
-
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,"This directory has been removed or no it is in the path");
         }
 
     }
-
     @Override
     public String toString() {
         return "MapPerson{" +
