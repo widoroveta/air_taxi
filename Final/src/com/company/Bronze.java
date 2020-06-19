@@ -2,7 +2,7 @@ package com.company;
 
 public class Bronze extends Avion
 {
-    private int TarifaFija=3000;
+    private final int TarifaFija=3000;
 
     public Bronze (int CapacidadCombustible,int costoxKilometro,int CapacidadMaxPersonas,int VelocidadMax,String TipoPropulsion )
     {

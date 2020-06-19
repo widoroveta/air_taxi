@@ -3,7 +3,7 @@ package com.company;
 public class Silver extends Avion
 {
 private boolean ServicioCatering=true;
-private int TarifaFija=4000;
+private final int TarifaFija=4000;
 
     public Silver(int CapacidadCombustible,int costoxKilometro,int CapacidadMaxPersonas,int VelocidadMax,String TipoPropulsion)
     {

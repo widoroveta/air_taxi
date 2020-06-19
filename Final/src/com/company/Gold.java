@@ -4,21 +4,15 @@ import java.util.Set;
 
 public class Gold extends Avion
 {
-    private boolean Wifi;
+    private final boolean Wifi=true;
     private boolean ServicioCatering=true;
-    private int TarifaFija=6000;
+    private final int TarifaFija=6000;
 
-    public Gold(int CapacidadCombustible,int costoxKilometro,int CapacidadMaxPersonas,int VelocidadMax,String TipoPropulsion,boolean WifiContinuo)
+    public Gold(int CapacidadCombustible,int costoxKilometro,int CapacidadMaxPersonas,int VelocidadMax,String TipoPropulsion)
     {
         super(CapacidadCombustible,costoxKilometro,CapacidadMaxPersonas,VelocidadMax,TipoPropulsion);
-        SetWifi(WifiContinuo);
-
     }
 
-    private void SetWifi(boolean WifiContinuo)
-    {
-        this.Wifi=WifiContinuo;
-    }
     public boolean GetWifi()
     {
         return this.Wifi;

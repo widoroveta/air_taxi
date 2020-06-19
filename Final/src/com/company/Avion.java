@@ -1,7 +1,12 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public abstract class Avion
 {
+    public List<Date>FechasVuelos=new ArrayList<>();
     private static int ID;
     private int Identificador;
     private int CapacidadCombustible;
@@ -75,9 +80,41 @@ public int GetId()
     {
         return this.Identificador;
     }
+    public List<Date> GetListaFechasDeVuelo()
+    {
+        return this.FechasVuelos;
+    }
+
+///-------------Manejo fechas----------
+
+    public void AgregarFechaVuelo(Date Fecha)    {
+        boolean asd=false;
+        for(Date e: FechasVuelos)
+        {
+            if(e.equals(Fecha))
+            {
+                asd=true;
+            }
+        }
+        if(asd==false)
+        {
+            FechasVuelos.add(Fecha);
+        }
+        else
+        {
+            System.out.println("ERROR---> El avion ya tiene programado un vuelo en esa fecha");
+        }
+    }
+
+    public void MostrarFechasVuelos()    {
+        for (Date e:FechasVuelos)
+        {
+            System.out.println(e.toString()+"\n");
+        }
+    }
 
 
-//--------------------------------------------------------Metodos--------------------------------------------------------------------
+    //--------------------------------------------------------Metodos--------------------------------------------------------------------
 public String toString()
 {
     String Mensaje="\n --ID: %d--\n Capacidad Combustible: %d Litros\n Capacidad Personas: %d\n Costo x Kilometro: %d Pesos x Km\n Velocidad Maxima: %d Km/h\n Tipo de Propulcion : %s\n";
