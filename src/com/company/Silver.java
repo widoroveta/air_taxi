@@ -2,11 +2,11 @@ package com.company;
 
 import java.io.Serializable;
 
-public class Silver extends Avion implements Serializable
+public class Silver extends Avion  implements Serializable
 {
-    private static final long serialVersionUID = 5316748056989930878L;
+    private static final long serialVersionUID = 8799656478674714444L;
 private boolean ServicioCatering=true;
-private int TarifaFija=4000;
+private final int TarifaFija=4000;
 
     public Silver(int CapacidadCombustible,int costoxKilometro,int CapacidadMaxPersonas,int VelocidadMax,String TipoPropulsion)
     {

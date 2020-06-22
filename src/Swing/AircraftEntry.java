@@ -103,6 +103,7 @@ public class AircraftEntry extends JPanel implements ActionListener {
                 mapper.writeValue(file, avion);
                 JOptionPane.showMessageDialog(null, avion.toString() + "Fine Aircraft has been save");
             } catch (IOException ioException) {
+                
                 ioException.printStackTrace();
             }
 
@@ -115,7 +116,7 @@ public class AircraftEntry extends JPanel implements ActionListener {
 
     public Gold setGold() {
         Gold avion;
-        avion = new Gold(Integer.parseInt(fuel_capacity.getText()), Integer.parseInt(cost_per_km.getText()), Integer.parseInt(max_capacity.getText()), Integer.parseInt(max_velocity.getText()), drive_type.getSelectedItem().toString(), true);
+        avion = new Gold(Integer.parseInt(fuel_capacity.getText()), Integer.parseInt(cost_per_km.getText()), Integer.parseInt(max_capacity.getText()), Integer.parseInt(max_velocity.getText()), drive_type.getSelectedItem().toString());
         return avion;
     }
 

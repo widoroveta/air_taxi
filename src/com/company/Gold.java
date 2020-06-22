@@ -5,22 +5,18 @@ import java.util.Set;
 
 public class Gold extends Avion implements Serializable
 {
-    private static final long serialVersionUID = 5316748056989930871L;
-    private boolean Wifi;
+    private static final long serialVersionUID = 8799656478674716658L;
+    private final boolean Wifi=true;
     private boolean ServicioCatering=true;
-    private int TarifaFija=6000;
+    private final int TarifaFija=6000;
+public Gold(){
 
-    public Gold(int CapacidadCombustible,int costoxKilometro,int CapacidadMaxPersonas,int VelocidadMax,String TipoPropulsion,boolean WifiContinuo)
+}
+    public Gold(int CapacidadCombustible,int costoxKilometro,int CapacidadMaxPersonas,int VelocidadMax,String TipoPropulsion)
     {
         super(CapacidadCombustible,costoxKilometro,CapacidadMaxPersonas,VelocidadMax,TipoPropulsion);
-        SetWifi(WifiContinuo);
-
     }
 
-    private void SetWifi(boolean WifiContinuo)
-    {
-        this.Wifi=WifiContinuo;
-    }
     public boolean GetWifi()
     {
         return this.Wifi;

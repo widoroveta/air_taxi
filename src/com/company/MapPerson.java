@@ -1,5 +1,6 @@
 package com.company;
 
+import Swing.ListAircrafts;
 import com.company.Person;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -7,7 +8,9 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapPerson implements Serializable {
@@ -38,6 +41,7 @@ public class MapPerson implements Serializable {
         }
 
     }
+
     @Override
     public String toString() {
         return "MapPerson{" +

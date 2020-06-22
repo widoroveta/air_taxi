@@ -1,9 +1,10 @@
 package com.company;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Reserva
+public class Reserva implements Serializable
 {
     private static int ID;
     private int NumeroDeReserva;
@@ -14,11 +15,11 @@ public class Reserva
    private int Acompañantes;
    private Avion Nuevo;
    private int CostoVuelo;
-   private int TarifaGlobal=3500;
+   private final int TarifaGlobal=3500;
+   private Person person ;
 
 
-
-   public Reserva(Date Fecha,String CiudadOrg,String CiudadDestin, int Acompañantes, Avion nuevo)
+   public Reserva(Date Fecha,String CiudadOrg,String CiudadDestin, int Acompañantes, Avion nuevo,Person person)
    {
        SetAvion(nuevo);
        SetAcompañantes(Acompañantes);
@@ -26,7 +27,6 @@ public class Reserva
        SetCiudadOrigen(CiudadOrg);
        SetFecha(Fecha);
        CalcularPrecioViaje();
-
    }
 ///--------------------------------------------Getters and Setters-------------------------------------------------------------------
    private void SetFecha(Date Fecha)
@@ -53,6 +53,11 @@ public class Reserva
        this.NumeroDeReserva=ID;
        ID=ID+1;
    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
     public int GetNumeroReserva()
    {
        return this.NumeroDeReserva;
@@ -82,8 +87,11 @@ public class Reserva
        return this.CostoVuelo;
    }
 
+    public Person getPerson() {
+        return person;
+    }
 
-///-------------------------------------------------Metodos-----------------------------------------------------------------------
+    ///-------------------------------------------------Metodos-----------------------------------------------------------------------
 private void CalcularPrecioViaje() {
     int suma=0;
 

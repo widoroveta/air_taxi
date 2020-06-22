@@ -3,16 +3,18 @@ package Swing;
 import com.company.Avion;
 import com.company.Enum.Cities;
 import com.company.Enum.PlainClass;
-import com.company.Gold;
 import com.company.Person;
 import com.company.Reserva;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Reservation extends JPanel implements ActionListener {
 
@@ -83,35 +85,76 @@ public class Reservation extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().toString().equalsIgnoreCase(submit.toString())) {
-            JOptionPane.showMessageDialog(null, this.plain_class.getSelectedItem());
 
-            doReservation((String) this.plain_class.getSelectedItem());
+
+            try {
+                doReservation();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
 
         }
-        if (e.getSource().toString().equalsIgnoreCase(submit.toString())) {
+        if (e.getSource().toString().equalsIgnoreCase(cancel.toString())) {
 
         }
     }
 
-    public Reserva doReservation(String m) {
-        Date date = new Date(Integer.parseInt(this.yearD.getText()), Integer.parseInt(this.monthD.getText()), Integer.parseInt(this.dayD.getText()));
-
+    public Reserva doReservation() throws IOException {
+        String m = this.plain_class.getSelectedItem().toString();
+        int ye=Integer.parseInt(this.yearD.getText());
+        int mo=Integer.parseInt(this.monthD.getText());
+        int da=Integer.parseInt(this.dayD.getText());
+        Date date = new Date(ye,mo,da);
+        String PathPlain = new String();
         switch (m) {
             case "Gold":
-                File file = new File("C:\\air_taxi-guido\\src\\com\\company\\PlainFile\\Gold");
-                if (file.isDirectory()) {
-                    File[] listFiles = file.listFiles();
-                }
+                PathPlain = "C:\\air_taxi-guido\\src\\com\\company\\PlainFile\\Gold\\";
                 break;
             case "Bronze":
-                // if (Silver)
+                PathPlain = "C:\\air_taxi-guido\\src\\com\\company\\PlainFile\\Bronze\\";
                 break;
             case "Silver":
-                //(bronze)
+                PathPlain = "C:\\air_taxi-guido\\src\\com\\company\\PlainFile\\Silver\\";
                 break;
+        }
+        File file = new File(PathPlain);
+        if (file.isDirectory()) {
+            File[] listFiles = file.listFiles();
+            ObjectMapper mapper = new ObjectMapper();
+
+            List<Avion> avionList = new ArrayList<>();
+            for (File file1 : listFiles) {
+
+                try {
+                    avionList.add(mapper.readValue(file, Avion.class));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            Frame frame = new Frame("selection");
+            ListAircrafts aircrafts = new ListAircrafts(dateSelection(avionList, date));
+            frame.add(aircrafts);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setVisible(true);
+if (aircrafts.getAvion()!=null){
+    frame.setVisible(false);
+}
         }
 
         return null;
+    }
+
+    public List<Avion> dateSelection(List<Avion> avions, Date date) {
+        List<Avion> selectedAvion = new ArrayList<>();
+        for (Avion avion : avions) {
+            if (avion.GetListaFechasDeVuelo().contains(date)) {
+                selectedAvion.add(avion);
+
+            }
+
+        }
+
+        return selectedAvion;
     }
 
 }

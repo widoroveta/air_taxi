@@ -1,10 +1,14 @@
 package com.company;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public abstract class Avion implements Serializable
 {
-    private static final long serialVersionUID = 5316748056989930874L;
+    private static final long serialVersionUID = 8799656478674716632L;
+    public List<Date>FechasVuelos=new ArrayList<>();
     private static int ID;
     private int Identificador;
     private int CapacidadCombustible;
@@ -13,7 +17,7 @@ public abstract class Avion implements Serializable
     private int VelocidadMax;
     private String TipoPropulsion;
     private int TarifaFija;
-
+public Avion(){}
     public Avion (int CapacidadCombustible,int costoxKilometro,int CapacidadMaxPersonas,int VelocidadMax,String TipoPropulsion )
     {
         SetCapacidadPersonas(CapacidadMaxPersonas);
@@ -78,9 +82,41 @@ public int GetId()
     {
         return this.Identificador;
     }
+    public List<Date> GetListaFechasDeVuelo()
+    {
+        return this.FechasVuelos;
+    }
+
+///-------------Manejo fechas----------
+
+    public void AgregarFechaVuelo(Date Fecha)    {
+        boolean asd=false;
+        for(Date e: FechasVuelos)
+        {
+            if(e.equals(Fecha))
+            {
+                asd=true;
+            }
+        }
+        if(asd==false)
+        {
+            FechasVuelos.add(Fecha);
+        }
+        else
+        {
+            System.out.println("ERROR---> El avion ya tiene programado un vuelo en esa fecha");
+        }
+    }
+
+    public void MostrarFechasVuelos()    {
+        for (Date e:FechasVuelos)
+        {
+            System.out.println(e.toString()+"\n");
+        }
+    }
 
 
-//--------------------------------------------------------Metodos--------------------------------------------------------------------
+    //--------------------------------------------------------Metodos--------------------------------------------------------------------
 public String toString()
 {
     String Mensaje="\n --ID: %d--\n Capacidad Combustible: %d Litros\n Capacidad Personas: %d\n Costo x Kilometro: %d Pesos x Km\n Velocidad Maxima: %d Km/h\n Tipo de Propulcion : %s\n";
