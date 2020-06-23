@@ -128,7 +128,7 @@ public class AircraftEntry extends JPanel implements ActionListener {
             try {
                 if (!file.exists()) {
                     mapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
-                    mapper.writeValue(file, com.company.Avion.class);
+                    mapper.writeValue(file, avion);
                     JOptionPane.showMessageDialog(null, avion.toString() + "Fine Aircraft has been save");
                 } else {
                     int i=0;

@@ -24,18 +24,12 @@ public class Main {
         mapPerson.setMap(PATH_USER);
         String title = "air taxi";
         Frame jf = new Frame(title);
-        //
-        // int inputDni = Integer.parseInt(JOptionPane.showInputDialog(jf.getContentPane(), "Input Dni"));
-        jf.add(new AircraftEntry());
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.setVisible(true);
-        /*
- jf.add(new Reservation(new Person ("carlos","messi",45454,45)));
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.setVisible(true);
-*/
+         int inputDni = Integer.parseInt(JOptionPane.showInputDialog(jf.getContentPane(), "Input Dni"));
 
-     /*  if (inputDni == 12345678) {
+
+
+
+     if (inputDni == 12345678) {
             String[] h = {"add aircraft", "List Aircraft", "List Reservation", "List Person"};
             int i = JOptionPane.showOptionDialog(null, "", "admin menu", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, h, h);
             if (i == 0) {
@@ -89,7 +83,7 @@ public class Main {
             Register register = new Register();
 
         }
-    }*/
+    }
 }
 }
 

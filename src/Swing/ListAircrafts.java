@@ -26,6 +26,9 @@ public class ListAircrafts extends JPanel implements MouseListener {
 
     public ListAircrafts() throws IOException {
         setLayout(new BorderLayout());
+        if(addAircraft()==null)
+        list=new JList();
+        else
         list = new JList(addAircraft().toArray());
         list.setVisibleRowCount(4);
         list.addMouseListener(this);
@@ -37,6 +40,9 @@ public class ListAircrafts extends JPanel implements MouseListener {
 
     public ListAircrafts(List<Avion> avions) {
         setLayout(new BorderLayout());
+        if(avions==null)
+            list=new JList();
+        else
         list = new JList(avions.toArray());
         list.setVisibleRowCount(4);
         list.addMouseListener(this);
@@ -48,6 +54,9 @@ public class ListAircrafts extends JPanel implements MouseListener {
 
     public ListAircrafts(List<Avion> avions, Person person) {
         setLayout(new BorderLayout());
+        if(avions==null)
+            list=new JList();
+        else
         list = new JList(avions.toArray());
         list.setVisibleRowCount(4);
         list.addMouseListener(this);
@@ -105,7 +114,7 @@ public class ListAircrafts extends JPanel implements MouseListener {
     }
 
     public List<Avion> addAircraft() throws IOException {
-        List<Avion> avionList = new ArrayList<>();
+
 
         String path1 = "src\\com\\company\\PlainFile\\Gold\\";
         String path2 = "src\\com\\company\\PlainFile\\Bronze\\";
@@ -114,10 +123,12 @@ public class ListAircrafts extends JPanel implements MouseListener {
         List<Avion> avions = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         File file1 = new File(path1);
-      if (file1.isDirectory()) {
+      if (file1.isDirectory()||file1.exists()) {
+
             File[] listfile1 = file1.listFiles();
             for (File file : listfile1) {
-                Avion a = mapper.readValue(file, com.company.Gold.class);
+                Avion a;
+                a = mapper.readValue(file, Avion.class);
                 avions.add(a);
             }
         }
@@ -147,8 +158,8 @@ public class ListAircrafts extends JPanel implements MouseListener {
 
 
         }
-        System.out.println(avionList);
-        return avionList;
+
+        return avions;
     }
 
     @Override

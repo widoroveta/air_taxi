@@ -95,6 +95,10 @@ Person person;
                    if(v!=null) {
                        area.setText(v.toString());
                        textArea.setText(String.valueOf(v.GetPrecioFinal()));
+                       File file=new File("src\\com\\company\\ReservationFile");
+                       ObjectMapper mapper= new ObjectMapper();
+                       mapper.writeValue(file,v);
+
                    }
                    } catch (IOException ioException) {
                     ioException.printStackTrace();
@@ -114,19 +118,21 @@ Person person;
         int da = Integer.parseInt(this.dayD.getText());
         String or=this.origin.getSelectedItem().toString();
         String de=this.destination.getSelectedItem().toString();
+        int acompantes=Integer.parseInt(this.number_of_companions.getText());
+        Reserva reserva=null;
         ///agregar vuelos
        Date date = new Date(ye, mo, da);
 
         String PathPlain = new String();
         switch (m) {
             case "Gold":
-                PathPlain = "src\\com\\company\\PlainFile\\Gold\\";
+                PathPlain = "\\src\\com\\company\\PlainFile\\Gold\\";
                 break;
             case "Bronze":
-                PathPlain = "src\\com\\company\\PlainFile\\Bronze\\";
+                PathPlain = "\\src\\com\\company\\PlainFile\\Bronze\\";
                 break;
             case "Silver":
-                PathPlain = "src\\com\\company\\PlainFile\\Silver\\";
+                PathPlain = "\\src\\com\\company\\PlainFile\\Silver\\";
                 break;
         }
         File file = new File(PathPlain);
@@ -150,11 +156,16 @@ Person person;
             frame.setVisible(true);
             if (aircrafts.getAvion() != null) {
                 frame.setVisible(false);
-             //   Reserva reserva= new Reserva(date,or,de,aircrafts.list.getSelectedValue(),);
+          if((aircrafts.getAvion().GetCapacidadPersonas()>aircrafts.getAvion().getCapacidadOcupada()+acompantes)) {
+            reserva = new Reserva(date, or, de,acompantes, aircrafts.getAvion(), this.person);
+          }else{
+              JOptionPane.showMessageDialog(null, "capacity reached");
+              return null;
+          }
             }
         }
 
-        return null;
+        return reserva;
     }
 
     public List<Avion> dateSelection(List<Avion> avions, Date date) {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public abstract class Avion implements Serializable
+public class Avion implements Serializable
 {
     private static final long serialVersionUID = 8799656478674716632L;
     public List<Date>FechasVuelos=new ArrayList<>();
@@ -87,6 +87,15 @@ public int GetTarifaFija()
 public int GetId()
     {
         return this.Identificador;
+    }
+
+    public void setCapacidadOcupada(int capacidadOcupada) {
+        this.capacidadOcupada = capacidadOcupada;
+
+    }
+
+    public int getCapacidadOcupada() {
+        return capacidadOcupada;
     }
 
     public int getIdentificador() {

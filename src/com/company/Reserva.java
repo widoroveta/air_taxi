@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.Enum.Cities;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -99,32 +101,32 @@ public class Reserva implements Serializable
 private void CalcularPrecioViaje() {
     int suma=0;
 
-    if((CiudadDestino.equals("BsAs") && CiudadOrigen.equals("Cordoba")) || (CiudadDestino.equals("Cordoba") && CiudadOrigen.equals("BsAs")))
+    if((CiudadDestino.equals(Cities.BsAs.getCities()) && CiudadOrigen.equals(Cities.CBA.getCities())) || (CiudadDestino.equals(Cities.CBA.getCities()) && CiudadOrigen.equals(Cities.BsAs.getCities())))
     {
         suma=(625* Nuevo.GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(Nuevo.GetTarifaFija());
         CostoVuelo=suma;
     }
-    else if ((CiudadDestino.equals("BsAs") && CiudadOrigen.equals("Santiago")) || (CiudadDestino.equals("Santiago") && CiudadOrigen.equals("BsAs")))
+    else if ((CiudadDestino.equals(Cities.BsAs.getCities()) && CiudadOrigen.equals(Cities.SCL.getCities())) || (CiudadDestino.equals(Cities.SCL.getCities()) && CiudadOrigen.equals(Cities.BsAs.getCities())))
     {
         suma=(1400* Nuevo.GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(Nuevo.GetTarifaFija());
         CostoVuelo=suma;
     }
-    else if ((CiudadDestino.equals("BsAs") && CiudadOrigen.equals("Montevideo")) || (CiudadDestino.equals("Montevideo") && CiudadOrigen.equals("BsAs")))
+    else if ((CiudadDestino.equals(Cities.BsAs.getCities()) && CiudadOrigen.equals(Cities.MVD.getCities())) || (CiudadDestino.equals(Cities.MVD.getCities()) && CiudadOrigen.equals(Cities.BsAs.getCities())))
     {
         suma=(950* Nuevo.GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(Nuevo.GetTarifaFija());
         CostoVuelo=suma;
     }
-    else if ((CiudadDestino.equals("Cordoba") && CiudadOrigen.equals("Montevideo")) || (CiudadDestino.equals("Montevideo") && CiudadOrigen.equals("Cordoba")))
+    else if ((CiudadDestino.equals(Cities.CBA.getCities()) && CiudadOrigen.equals(Cities.MVD.getCities())) || (CiudadDestino.equals(Cities.MVD.getCities()) && CiudadOrigen.equals(Cities.CBA.getCities())))
     {
         suma=(1190* Nuevo.GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(Nuevo.GetTarifaFija());
         CostoVuelo=suma;
     }
-    else if((CiudadDestino.equals("Cordoba") && CiudadOrigen.equals("Santiago")) || (CiudadDestino.equals("Santiago") && CiudadOrigen.equals("Cordoba")))
+    else if((CiudadDestino.equals(Cities.CBA.getCities()) && CiudadOrigen.equals(Cities.SCL.getCities())) || (CiudadDestino.equals(Cities.SCL.getCities()) && CiudadOrigen.equals(Cities.CBA.getCities())))
     {
         suma=(1050* Nuevo.GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(Nuevo.GetTarifaFija());
         CostoVuelo=suma;
     }
-    else if((CiudadDestino.equals("Montevideo") && CiudadOrigen.equals("Santiago")) || (CiudadDestino.equals("Santiago") && CiudadOrigen.equals("Montevideo")))
+    else if((CiudadDestino.equals(Cities.MVD.getCities()) && CiudadOrigen.equals(Cities.SCL.getCities())) || (CiudadDestino.equals(Cities.SCL.getCities()) && CiudadOrigen.equals(Cities.MVD.getCities())))
     {
         suma=(1050* Nuevo.GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(Nuevo.GetTarifaFija());
         CostoVuelo=suma;
