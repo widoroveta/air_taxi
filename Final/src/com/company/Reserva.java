@@ -8,43 +8,32 @@ public class Reserva
     private static int ID;
     private int NumeroDeReserva;
     private boolean activo=false;
-   private Date fecha=new Date();
-   private String CiudadOrigen;
-   private String CiudadDestino;
-   private int Acompañantes;
-   private Avion Nuevo;
-   private int CostoVuelo;
-   private int TarifaGlobal=3500;
+    private Date fecha=new Date();
+    private Vuelo vuelo;
+    private Usuario user;
+    private int Acompañantes;
+    private int CostoVuelo;
+    private final int TarifaGlobal=3500;
 
 
 
-   public Reserva(Date Fecha,String CiudadOrg,String CiudadDestin, int Acompañantes, Avion nuevo)
+   public Reserva(Usuario user, Vuelo vuelo,int Acompañantes)
    {
-       SetAvion(nuevo);
        SetAcompañantes(Acompañantes);
-       SetCiudadDestino(CiudadDestin);
-       SetCiudadOrigen(CiudadOrg);
-       SetFecha(Fecha);
+       SetNumeroReserva();
+       SetUser(user);
+       SetVuelo(vuelo);
        CalcularPrecioViaje();
+       AgregarPasagerosaVuelo(Acompañantes,vuelo);
+
 
    }
 ///--------------------------------------------Getters and Setters-------------------------------------------------------------------
-   private void SetFecha(Date Fecha)
-   {
-       this.fecha=Fecha;
-   }
-   private void SetCiudadOrigen(String Origen)
-   {
-       this.CiudadOrigen=Origen;
-   }
-   private void SetCiudadDestino(String Destino)
-   {
-       this.CiudadDestino=Destino;
-   }
-   private void SetAvion(Avion nave)
-   {
-       this.Nuevo=nave;
-   }
+
+    private void AgregarPasagerosaVuelo(int dato,Vuelo vuelo)
+    {
+        vuelo.AgregarReserva(dato);
+    }
    private void SetAcompañantes(int acompañantes)
    {
        this.Acompañantes=acompañantes;
@@ -53,29 +42,29 @@ public class Reserva
        this.NumeroDeReserva=ID;
        ID=ID+1;
    }
+   private void SetUser(Usuario user)
+   {
+       this.user=user;
+   }
+   private void SetVuelo(Vuelo vuelo)
+   {
+       this.vuelo=vuelo;
+   }
     public int GetNumeroReserva()
    {
        return this.NumeroDeReserva;
    }
-    public int GetTarifaGlobal()
-{
-    return this.TarifaGlobal;
-}
     public int GetAcompañantes()
    {
        return this.Acompañantes;
    }
-    public String GetCiudadOrigen()
+    public Usuario GetUsuario()
+    {
+        return this.user;
+    }
+    public Vuelo GetVuelo()
    {
-       return this.CiudadOrigen;
-   }
-    public String GetCiudadDestino()
-   {
-       return this.CiudadDestino;
-   }
-    public Avion GetAvion()
-   {
-       return this.Nuevo;
+       return this.vuelo;
    }
    public int GetPrecioFinal()
    {
@@ -87,41 +76,41 @@ public class Reserva
 private void CalcularPrecioViaje() {
     int suma=0;
 
-    if((CiudadDestino.equals("BsAs") && CiudadOrigen.equals("Cordoba")) || (CiudadDestino.equals("Cordoba") && CiudadOrigen.equals("BsAs")))
+    if((vuelo.GetCiudadDestino().equals("BsAs") && vuelo.GetCiudadOrigen().equals("Cordoba")) || (vuelo.GetCiudadDestino().equals("Cordoba") && vuelo.GetCiudadOrigen().equals("BsAs")))
     {
-        suma=(625* Nuevo.GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(Nuevo.GetTarifaFija());
+        suma=(625* vuelo.GetAvion().GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(vuelo.GetAvion().GetTarifaFija());
         CostoVuelo=suma;
     }
-    else if ((CiudadDestino.equals("BsAs") && CiudadOrigen.equals("Santiago")) || (CiudadDestino.equals("Santiago") && CiudadOrigen.equals("BsAs")))
+    else if ((vuelo.GetCiudadDestino().equals("BsAs") && vuelo.GetCiudadOrigen().equals("Santiago")) || (vuelo.GetCiudadDestino().equals("Santiago") && vuelo.GetCiudadOrigen().equals("BsAs")))
     {
-        suma=(1400* Nuevo.GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(Nuevo.GetTarifaFija());
+        suma=(1400* vuelo.GetAvion().GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(vuelo.GetAvion().GetTarifaFija());
         CostoVuelo=suma;
     }
-    else if ((CiudadDestino.equals("BsAs") && CiudadOrigen.equals("Montevideo")) || (CiudadDestino.equals("Montevideo") && CiudadOrigen.equals("BsAs")))
+    else if ((vuelo.GetCiudadDestino().equals("BsAs") && vuelo.GetCiudadOrigen().equals("Montevideo")) || (vuelo.GetCiudadDestino().equals("Montevideo") && vuelo.GetCiudadOrigen().equals("BsAs")))
     {
-        suma=(950* Nuevo.GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(Nuevo.GetTarifaFija());
+        suma=(950* vuelo.GetAvion().GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(vuelo.GetAvion().GetTarifaFija());
         CostoVuelo=suma;
     }
-    else if ((CiudadDestino.equals("Cordoba") && CiudadOrigen.equals("Montevideo")) || (CiudadDestino.equals("Montevideo") && CiudadOrigen.equals("Cordoba")))
+    else if ((vuelo.GetCiudadDestino().equals("Cordoba") && vuelo.GetCiudadOrigen().equals("Montevideo")) || (vuelo.GetCiudadDestino().equals("Montevideo") && vuelo.GetCiudadOrigen().equals("Cordoba")))
     {
-        suma=(1190* Nuevo.GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(Nuevo.GetTarifaFija());
+        suma=(1190* vuelo.GetAvion().GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(vuelo.GetAvion().GetTarifaFija());
         CostoVuelo=suma;
     }
-    else if((CiudadDestino.equals("Cordoba") && CiudadOrigen.equals("Santiago")) || (CiudadDestino.equals("Santiago") && CiudadOrigen.equals("Cordoba")))
+    else if((vuelo.GetCiudadDestino().equals("Cordoba") && vuelo.GetCiudadOrigen().equals("Santiago")) || (vuelo.GetCiudadDestino().equals("Santiago") && vuelo.GetCiudadOrigen().equals("Cordoba")))
     {
-        suma=(1050* Nuevo.GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(Nuevo.GetTarifaFija());
+        suma=(1050* vuelo.GetAvion().GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(vuelo.GetAvion().GetTarifaFija());
         CostoVuelo=suma;
     }
-    else if((CiudadDestino.equals("Montevideo") && CiudadOrigen.equals("Santiago")) || (CiudadDestino.equals("Santiago") && CiudadOrigen.equals("Montevideo")))
+    else if((vuelo.GetCiudadDestino().equals("Montevideo") && vuelo.GetCiudadOrigen().equals("Santiago")) || (vuelo.GetCiudadDestino().equals("Santiago") && vuelo.GetCiudadOrigen().equals("Montevideo")))
     {
-        suma=(1050* Nuevo.GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+(Nuevo.GetTarifaFija());
+        suma=(1050* vuelo.GetAvion().GetCostoXKilometro())+(Acompañantes*TarifaGlobal)+vuelo.GetAvion().GetTarifaFija();
         CostoVuelo=suma;
     }
 
 }
 public String toString(){
-    String Mensaje= "Reserva N°%d \n Fecha: %s \n Ciudad Origen: %s \n Ciudad Destino: %s \n Avion Seleccionado: %s\n Precio Viaje: %d";
-    return String.format(Mensaje,GetNumeroReserva(),fecha.toString(),GetCiudadOrigen(),GetCiudadDestino(),Nuevo.toString(),GetPrecioFinal());
+    String Mensaje= "ID RESERVA: %d \nDatos Usuario: %s  \n Datos Vuelo: %s \n Acompañantes: %d\nPrecio viaje: %d\n";
+    return String.format(Mensaje,GetNumeroReserva(),user.toString(),vuelo.toString(),GetAcompañantes(),GetPrecioFinal());
 }
 
 

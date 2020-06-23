@@ -1,5 +1,6 @@
 package com.company;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 public abstract class Avion
 {
     public List<Date>FechasVuelos=new ArrayList<>();
+    public List<Vuelo>Vuelos=new ArrayList<>();
     private static int ID;
     private int Identificador;
     private int CapacidadCombustible;
@@ -80,36 +82,12 @@ public int GetId()
     {
         return this.Identificador;
     }
-    public List<Date> GetListaFechasDeVuelo()
-    {
-        return this.FechasVuelos;
-    }
 
-///-------------Manejo fechas----------
-
-    public void AgregarFechaVuelo(Date Fecha)    {
-        boolean asd=false;
-        for(Date e: FechasVuelos)
-        {
-            if(e.equals(Fecha))
-            {
-                asd=true;
-            }
-        }
-        if(asd==false)
-        {
-            FechasVuelos.add(Fecha);
-        }
-        else
-        {
-            System.out.println("ERROR---> El avion ya tiene programado un vuelo en esa fecha");
-        }
-    }
 
     public void MostrarFechasVuelos()    {
-        for (Date e:FechasVuelos)
+        for (Vuelo e:Vuelos)
         {
-            System.out.println(e.toString()+"\n");
+            System.out.println(e.GetDate()+"\n");
         }
     }
 
@@ -117,7 +95,7 @@ public int GetId()
     //--------------------------------------------------------Metodos--------------------------------------------------------------------
 public String toString()
 {
-    String Mensaje="\n --ID: %d--\n Capacidad Combustible: %d Litros\n Capacidad Personas: %d\n Costo x Kilometro: %d Pesos x Km\n Velocidad Maxima: %d Km/h\n Tipo de Propulcion : %s\n";
+    String Mensaje="\nAvion ID: %d--\nCapacidad Combustible: %d Litros\nCapacidad Personas: %d\nCosto x Kilometro: %d Pesos x Km\nVelocidad Maxima: %d Km/h\nTipo de Propulcion : %s\n";
     return String.format(Mensaje,GetId(),GetCombustible(),GetCapacidadPersonas(),GetCostoXKilometro(),GetVelocidad(),GetTipoPropulcion());
 }
 

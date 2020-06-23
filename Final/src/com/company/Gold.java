@@ -6,7 +6,7 @@ public class Gold extends Avion
 {
     private final boolean Wifi=true;
     private boolean ServicioCatering=true;
-    private final int TarifaFija=6000;
+    private int TarifaFija=6000;
 
     public Gold(int CapacidadCombustible,int costoxKilometro,int CapacidadMaxPersonas,int VelocidadMax,String TipoPropulsion)
     {

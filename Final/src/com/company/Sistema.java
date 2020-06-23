@@ -9,10 +9,9 @@ import java.util.concurrent.atomic.DoubleAccumulator;
 public class Sistema
 {
     private int i=0;
-    private List<Date>ListaFechas=new ArrayList<>();
     private ArrayList<Avion>ListaAviones=new ArrayList<>();
     private ArrayList<Reserva>ListaReservas=new ArrayList<>();
-
+    private List<Vuelo>ListaVuelos=new ArrayList<>();
     public Sistema(int dato)
     {
         i=dato;
@@ -33,7 +32,6 @@ public class Sistema
             System.out.println("\n");
         }
     }
-
     public void MostrarGolds()
     {
         for(Avion e: ListaAviones)
@@ -44,7 +42,6 @@ public class Sistema
             }
         }
     }
-
     public void MostrarSilver()
     {
         for(Avion e: ListaAviones)
@@ -56,7 +53,6 @@ public class Sistema
         }
 
     }
-
     public void MostrarBronces()
     {
         for(Avion e: ListaAviones)
@@ -68,192 +64,29 @@ public class Sistema
         }
 
     }
-public void MostrarReservas()
-{
+    public void MostrarReservas()
+    {
     for (Reserva e: ListaReservas)
     {
         System.out.println(e.toString());
         System.out.println("\n");
     }
 }
-public void CrearReserva()
-{
-    Scanner sc = new Scanner(System.in);
-    Date testDate = null;
-    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-    boolean Validacion=false;
-    String CiudadOrigen="a";
-    String CiudadDestino="a";
-    int dato=0;
-    int cantidadAsientos;
-    Avion AvionReserva = null;
-    boolean Comp=false;
+    public void CrearReserva(Usuario User,Vuelo vuelo,int acompañantes)
+    {
 
-
-    while(Validacion==false)
-    {
-        System.out.println("Introduzca la fecha con formato dd/mm/yyyy \n");
-        String fecha = sc.nextLine();
-        String date = fecha;
-
-        try{
-            testDate = df.parse(date);
-        } catch (Exception e){ System.out.println("\n ERROR--------> Formato no Valido\n");}
-        if (!df.format(testDate).equals(date)){
-            System.out.println("\nERROR--------> Fecha No Valida - Intentelo de nuevo\n");
-        } else {
-            System.out.println("Fecha Valida\n");
-            Validacion=true;
-        }
-    }
-    System.out.println("Ingrese el numero que indica su ciudad De Origen \n");
-    System.out.println("1. Buenos Aires \n");
-    System.out.println("2. Montevideo \n");
-    System.out.println("3. Cordoba \n");
-    System.out.println("4. Santiago \n");
-    dato=sc.nextInt();
-    while (Validacion==true)
-    {
-        if (dato==1)
-    {
-        CiudadOrigen="BsAs";
-        Validacion=false;
-    }
-    else if(dato==2)
-    {
-        CiudadOrigen="Montevideo";
-        Validacion=false;
-    }
-    else if(dato==3)
-    {
-        CiudadOrigen="Cordoba";
-        Validacion=false;
-    }
-    else if(dato==4)
-    {
-        CiudadOrigen="Santiago";
-        Validacion=false;
-    }
-    else
-        {
-            System.out.println("\nERROR--------> Numero no Valido intentelo de nuevo\n");
-        }
-
-    }
-
-    while (Comp==false)
-    {
-        System.out.println("Ingrese el numero que indica su ciudad De Destino \n");
-        System.out.println("1. Buenos Aires \n");
-        System.out.println("2. Montevideo \n");
-        System.out.println("3. Cordoba \n");
-        System.out.println("4. Santiago \n");
-        dato=sc.nextInt();
-        while (Validacion==false)
-        {
-            if (dato==1)
-            {
-                CiudadDestino="BsAs";
-                Validacion=true;
-                Comp=true;
-            }
-            else if(dato==2)
-            {
-                CiudadDestino="Montevideo";
-                Validacion=true;
-                Comp=true;
-            }
-            else if(dato==3)
-            {
-                CiudadDestino="Cordoba";
-                Validacion=true;
-                Comp=true;
-            }
-            else if(dato==4)
-            {
-                CiudadDestino="Santiago";
-                Validacion=true;
-                Comp=true;
-            }
-            else
-            {
-                System.out.println("\nERROR--------> Numero no Valido intentelo de nuevo\n");
-            }
-            if(CiudadDestino.equals(CiudadOrigen))
-            {
-                System.out.println("\nERROR-------->No puede seleccionar el mismo lugar de Origen y destino intentelo de nuevo\n");
-                Comp=false;
-            }
-        }
-    }
-    System.out.println("Ingrese cantidad de Asientos ");
-    dato=sc.nextInt();
-    cantidadAsientos= dato;
-    while(Comp==true)
-    {
-        System.out.println("Ingrese el avion en el que desea viajar");
-        dato=0;
-        for(Avion e: ListaAviones)
-        {
-            System.out.println("\n - "+(dato+1)+" - \n"+e.toString());
-            dato=dato+1;
-        }
-        dato=sc.nextInt();
-        if(dato>ListaAviones.size())
-        {
-            System.out.println("\nERROR--------> Numero no valido intentelo de nuevo\n");
-        }
-        else
-        {
-            AvionReserva=ListaAviones.get(dato);
-            Comp=false;
-        }
-    }
-
-    Reserva Nueva=new Reserva(testDate,CiudadOrigen,CiudadDestino,cantidadAsientos,AvionReserva);
+    Reserva Nueva=new Reserva(User,vuelo,acompañantes);
     ListaReservas.add(Nueva);
 
 }
-
-public void AgregarFechaVuelo()
-{
-    int identi=0;
-    boolean Validacion=false;
-    String fecha;
-    Scanner sc = new Scanner(System.in);
-    Date testDate = null;
-    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-
-    System.out.println("Estos son los Aviones Disponibles y Sus Fechas Programadas: \n");
-    for(Avion e:ListaAviones)
+    public void AgregarFechaVuelo(Date fecha,String CiudadOrigen,String CiudadDestino,Avion avion)
     {
-        System.out.println("ID Avion: "+e.GetId() +"\n");
-        e.MostrarFechasVuelos();
-    }
 
-    while(Validacion==false)
+        Vuelo nuevo=new Vuelo(fecha,avion,CiudadDestino,CiudadOrigen);
+        ListaVuelos.add(nuevo);
+    }
+    public void PrecargaDatos() throws ParseException
     {
-        System.out.println("Introduzca la fecha del nuevo viaje con formato dd/mm/yyyy \n");
-        fecha= sc.nextLine();
-        String date = fecha;
-
-        try{
-            testDate = df.parse(date);
-        } catch (Exception e){ System.out.println("\n ERROR--------> Formato no Valido\n");}
-        if (!df.format(testDate).equals(date)){
-            System.out.println("\nERROR--------> Fecha No Valida - Intentelo de nuevo\n");
-        } else {
-            System.out.println("Fecha Valida\n");
-            Validacion=true;
-        }
-    }
-    System.out.println("Ingrese el ID del avion al cual le quiere asignar un nuevo viaje \n");
-    identi=sc.nextInt();
-
-    ListaAviones.get(identi).AgregarFechaVuelo(testDate);
-}
-
-public void PrecargaDatos() throws ParseException {
     SimpleDateFormat a = new SimpleDateFormat("dd/MM/yyyy");
     Date uno=null;
     Date dos=new Date();
@@ -264,7 +97,7 @@ public void PrecargaDatos() throws ParseException {
 
     String Fecha1="20/06/2020";
     String Fecha2="19/06/2020";
-    String Fecha3="25/06/2020";
+    String Fecha3="24/06/2020";
     String Fecha4="29/06/2020";
     String Fecha5="25/06/2020";
     uno = a.parse(Fecha1);
@@ -275,67 +108,69 @@ public void PrecargaDatos() throws ParseException {
 
     //AVIONES
 
-    Avion Avion1=new Gold(800,200,100,400,"Super",true);
+    Avion Avion1=new Gold(800,200,100,400,"Super");
     Avion Avion2=new Silver(500,300,50,200,"Base");
-
     ListaAviones.add(Avion1);
     ListaAviones.add(Avion2);
+    //Vuelos
+    AgregarFechaVuelo(tres,"BsAs","Montevideo",Avion1);
+    AgregarFechaVuelo(cinco,"BsAs","Montevideo",Avion2);
+
+    //USUARIO
+        Usuario Alan=new Usuario("ALAN");
+        Usuario Guido=new Usuario("GUIDO");
     //Reservas
 
-    ListaAviones.get(0).AgregarFechaVuelo(uno);
-    ListaAviones.get(0).AgregarFechaVuelo(dos);
-    ListaAviones.get(1).AgregarFechaVuelo(tres);
-    ListaAviones.get(1).AgregarFechaVuelo(cuatro);
-    ListaAviones.get(0).AgregarFechaVuelo(cinco);
+        CrearReserva(Alan,ListaVuelos.get(0),2);
+        CrearReserva(Guido,ListaVuelos.get(0),2);
+        System.out.println("Mostrando Reservas");
+        MostrarReservas();
+        VerificarCancelacionReserva(ListaReservas.get(1));
+        System.out.println("\n \n");
+        MostrarReservas();
+        //MostrarFechasVuelosSistema();
+
 
 }
-
-
-
-public void MostrarFechasVuelosSistema()
-{
-    // Muestra las Reservas entre el dia Actual y 15 dias a futuro.
-
-    boolean valid=true;
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-    Date hoy=new Date();
-    Date FechaLimite=new Date();
-    Calendar FechaInicialCalendario=Calendar.getInstance();
-    Calendar FechaLimiteCalendario=Calendar.getInstance();
-    Calendar FechaComparacion=Calendar.getInstance();
-
-    FechaInicialCalendario.setTime(hoy);
-    FechaLimiteCalendario.setTime(FechaLimite);
-    FechaLimiteCalendario.add(Calendar.DAY_OF_YEAR,15);
-    FechaLimite=FechaInicialCalendario.getTime();
-
-
-    System.out.println(""+FechaInicialCalendario.getTime()); //19 junio
-    System.out.println(""+FechaLimiteCalendario.getTime());  //4 julio
-
-    while (!FechaInicialCalendario.after(FechaLimiteCalendario))
+    public void MostrarFechasVuelosSistema()
     {
-        System.out.println("\n--------------------------------------------------------------------------------------------");
-        System.out.println("\n Los vuelos del dia: "+FechaInicialCalendario.getTime()+" \n");
-        for (Avion e:ListaAviones)
+        // Muestra las Reservas entre el dia Actual y 15 dias a futuro.
+
+        boolean valid=true;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date hoy=new Date();
+        Date FechaLimite=new Date();
+        Calendar FechaInicialCalendario=Calendar.getInstance();
+        Calendar FechaLimiteCalendario=Calendar.getInstance();
+        Calendar FechaComparacion=Calendar.getInstance();
+
+        FechaInicialCalendario.setTime(hoy);
+        FechaLimiteCalendario.setTime(FechaLimite);
+        FechaLimiteCalendario.add(Calendar.DAY_OF_YEAR,15);
+        FechaLimite=FechaInicialCalendario.getTime();
+
+
+        while (!FechaInicialCalendario.after(FechaLimiteCalendario))
         {
-            ListaFechas=e.GetListaFechasDeVuelo();
-            int s=ListaFechas.size();
 
-
-            for(int i = 0; i < s; ++i)
+            System.out.println("\n Los vuelos del dia: "+FechaInicialCalendario.getTime()+" \n");
+            for (Vuelo e:ListaVuelos)
             {
-                FechaComparacion.setTime(ListaFechas.get(i));
+
+                FechaComparacion.setTime(e.GetDate());
                 hoy=FechaInicialCalendario.getTime();
                 FechaLimite=FechaComparacion.getTime();
                 if (formatter.format(FechaComparacion.getTime()).equals(formatter.format(FechaInicialCalendario.getTime())))
                 {
-                    System.out.println("El avion ID: "+e.GetId()+" Tiene programado un vuelo para este dia \n");
+                    System.out.println("El avion ID: "+e.GetAvion().GetId()+" Tiene programado un vuelo para este dia \n");
+                    System.out.println("El ID del vuelo: "+e.Getid()+"\n");
+
                     valid=false;
+                    System.out.println("--------------------------------------------------------------------------------------------");
 
                 }
             }
-        }
+
         if (valid==true)
         {
             System.out.println("\n No hay vuelos programados para ese dia \n");
@@ -344,7 +179,68 @@ public void MostrarFechasVuelosSistema()
         valid=true;
 
         FechaInicialCalendario.add(Calendar.DAY_OF_YEAR,1);
-        System.out.println("--------------------------------------------------------------------------------------------");
     }
+    }
+    public boolean VerificacionIngresoReserva(int Acompañantes, Vuelo nuevo)
+    {
+    boolean confirmacion=true;
+        if(nuevo.VerificarCapacidad(Acompañantes)==false)
+        {
+            confirmacion=false;
+        }
+    return  confirmacion;
 }
+    public boolean VerificacionCreaciondeVuelo(Date fecha,Avion avion)
+    {
+    //Si retorna false es porque esa fecha ya tiene programado un vuelo con el mismo avion
+    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
+    boolean confirm=true;
+    for(Vuelo e:ListaVuelos)
+    {
+        if ( (df.format(e.GetDate()).equals(df.format(fecha))) && avion.GetId()==e.GetAvion().GetId())
+        {
+            confirm=false;
+        }
+    }
+return confirm;
+}
+
+    public boolean VerificarCancelacionReserva(Reserva reserva)
+    {
+        // RETORNA TRUE SI LA CANCELO Y FALSE SI FALTAN MENOS DE 24 HS POR LO QUE NO PERMITE CANCELARLA
+        int i=0;
+        Date fechaInicial=new Date();
+        Calendar FechaInicialCalendario=Calendar.getInstance();
+        Calendar FechaLimiteCalendario=Calendar.getInstance();
+        FechaInicialCalendario.setTime(fechaInicial);
+        FechaLimiteCalendario.setTime(reserva.GetVuelo().GetDate());
+        FechaInicialCalendario.add(Calendar.DAY_OF_YEAR,2);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        if (FechaInicialCalendario.after(FechaLimiteCalendario))
+        {
+            System.out.println(""+FechaInicialCalendario.getTime());
+            System.out.println(""+FechaLimiteCalendario.getTime());
+            for(Vuelo e:ListaVuelos)
+            {
+
+                if(reserva.GetVuelo().Getid()==e.Getid())
+                {
+                    ListaReservas.remove(i);
+                }
+                else
+                {
+                    i=i+1;
+                }
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
 }
