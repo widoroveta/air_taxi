@@ -2,6 +2,8 @@ package Swing;
 
 import com.company.Person;
 import com.company.Reserva;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.swing.*;
@@ -68,22 +70,28 @@ public class ListReservation extends JPanel implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
-    public Reserva[] setReservalist (){
-        List<Reserva> reservaList= new ArrayList<>();
+    public Reserva[] setReservalist () {
+        List<Reserva> reservaList = new ArrayList<>();
+        reservaList = null;
         File file = new File("C:\\air_taxi-guido\\src\\com\\company\\ReservationFile\\");
         ObjectMapper mapper = new ObjectMapper();
-        try {
-            if (file.isDirectory()) {
+        if (file.isDirectory() || file.exists()) {
+            try {
+
                 File[] files = file.listFiles();
                 for (File file1 : files) {
-                    Reserva p = mapper.readValue(file1, Reserva.class);
+                    Reserva p = mapper.readValue(file1, com.company.Reserva.class);
                     reservaList.add(p);
                 }
-            }
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null,"This directory has been removed or no it is in the path");
-        }
-        return (Reserva[]) reservaList.toArray();
 
+            } catch (JsonParseException | JsonMappingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+        }
+
+        return (Reserva[]) reservaList.toArray();
     }
 }

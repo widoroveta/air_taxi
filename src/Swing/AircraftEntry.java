@@ -18,6 +18,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class AircraftEntry extends JPanel implements ActionListener {
 
@@ -35,9 +38,11 @@ public class AircraftEntry extends JPanel implements ActionListener {
     JLabel label6 = new JLabel("Drive type");
     JButton submit = new JButton("Submit");
     JButton cancel = new JButton("Cancel");
+    JButton addDateFly = new JButton("add Date fly");
 
     public AircraftEntry() {
         this.setLayout(null);
+
         this.label1.setBounds(10, 10, 300, 25);
         this.aircraft_type.setBounds(10, 30, 300, 25);
         this.label2.setBounds(10, 55, 300, 25);
@@ -54,6 +59,7 @@ public class AircraftEntry extends JPanel implements ActionListener {
         this.cancel.setBounds(440, 260, 100, 30);
         this.submit.addActionListener(this::actionPerformed);
         this.cancel.addActionListener(this::actionPerformed);
+        this.addDateFly.setBounds(400, 50, 100, 30);
         this.add(label1);
         this.add(label2);
         this.add(label3);
@@ -68,14 +74,24 @@ public class AircraftEntry extends JPanel implements ActionListener {
         this.add(drive_type);
         this.add(submit);
         this.add(cancel);
+        this.addDateFly.addActionListener(this::actionPerformed);
+        this.add(addDateFly);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Avion avion;
+        Avion avion = null;
         String path = new String();
         File file;
+        List<Date> dates = new ArrayList<>();
+        if (e.getSource().toString().equalsIgnoreCase(addDateFly.toString())) {
+            String date = JOptionPane.showInputDialog("Add date", null);
+
+     avion.AgregarFechaVuelo(new Date(date));
+        }
+
         if (e.getSource().toString().equalsIgnoreCase(submit.toString())) {
+
 
             switch (aircraft_type.getSelectedItem().toString()) {
                 case "Gold":
@@ -95,6 +111,7 @@ public class AircraftEntry extends JPanel implements ActionListener {
 
                     break;
             }
+
             file = new File(path + avion.GetId() + ".json");
 
             ObjectMapper mapper = new ObjectMapper();
@@ -103,7 +120,7 @@ public class AircraftEntry extends JPanel implements ActionListener {
                 mapper.writeValue(file, avion);
                 JOptionPane.showMessageDialog(null, avion.toString() + "Fine Aircraft has been save");
             } catch (IOException ioException) {
-                
+
                 ioException.printStackTrace();
             }
 

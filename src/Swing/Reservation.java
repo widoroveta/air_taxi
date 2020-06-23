@@ -32,7 +32,7 @@ public class Reservation extends JPanel implements ActionListener {
     JLabel label4 = new JLabel("Number of companions");
     JLabel label5 = new JLabel("Plain class");
     JLabel label6 = new JLabel("Total");
-    JList plains;
+    JTextArea area =new JTextArea();
     JTextArea textArea = new JTextArea();
     JButton submit = new JButton("Submit");
     JButton cancel = new JButton("Cancel");
@@ -54,8 +54,8 @@ public class Reservation extends JPanel implements ActionListener {
         this.plain_class.setBounds(10, 210, 300, 25);
         this.label4.setBounds(10, 240, 300, 25);
         this.number_of_companions.setBounds(10, 260, 300, 25);
-        this.plains = new JList();
-        plains.setBounds(350, 10, 300, 200);
+
+        area.setBounds(350, 10, 300, 200);
         this.label6.setBounds(450, 220, 50, 40);
         this.textArea.setBounds(500, 220, 150, 40);
         this.submit.setBounds(325, 275, 100, 30);
@@ -77,7 +77,7 @@ public class Reservation extends JPanel implements ActionListener {
         this.add(number_of_companions);
         this.add(textArea);
         this.add(label6);
-        this.add(plains);
+        this.add(area);
         this.add(submit);
         this.add(cancel);
     }
@@ -85,26 +85,37 @@ public class Reservation extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().toString().equalsIgnoreCase(submit.toString())) {
+            if (this.origin.getSelectedItem().equals(this.destination.getSelectedItem()) ){
+                JOptionPane.showMessageDialog(null, "Are the same place");
+            } else {
+                try {
+                    Reserva v=null;
+                    v=doReservation();
+                   if(v!=null) {
+                       area.setText(v.toString());
+                       textArea.setText(String.valueOf(v.GetPrecioFinal()));
+                   }
+                   } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
 
-
-            try {
-                doReservation();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
             }
-
         }
         if (e.getSource().toString().equalsIgnoreCase(cancel.toString())) {
-
+            System.exit(0);
         }
     }
 
     public Reserva doReservation() throws IOException {
         String m = this.plain_class.getSelectedItem().toString();
-        int ye=Integer.parseInt(this.yearD.getText());
-        int mo=Integer.parseInt(this.monthD.getText());
-        int da=Integer.parseInt(this.dayD.getText());
-        Date date = new Date(ye,mo,da);
+        int ye = Integer.parseInt(this.yearD.getText());
+        int mo = Integer.parseInt(this.monthD.getText());
+        int da = Integer.parseInt(this.dayD.getText());
+        String or=this.origin.getSelectedItem().toString();
+        String de=this.destination.getSelectedItem().toString();
+        ///agregar vuelos
+       Date date = new Date(ye, mo, da);
+
         String PathPlain = new String();
         switch (m) {
             case "Gold":
@@ -136,9 +147,10 @@ public class Reservation extends JPanel implements ActionListener {
             frame.add(aircrafts);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
-if (aircrafts.getAvion()!=null){
-    frame.setVisible(false);
-}
+            if (aircrafts.getAvion() != null) {
+                frame.setVisible(false);
+                //Reserva reserva= new Reserva();
+            }
         }
 
         return null;

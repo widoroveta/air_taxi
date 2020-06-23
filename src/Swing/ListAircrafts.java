@@ -18,62 +18,63 @@ import java.util.List;
 public class ListAircrafts extends JPanel implements MouseListener {
 
 
-
     JLabel label = new JLabel("please double click on the reservation you want");
     JList list;
-Avion avion;
+    Avion avion;
     JScrollPane scrollPane;
-Person person;
+    Person person;
+
     public ListAircrafts() throws IOException {
         setLayout(new BorderLayout());
         list = new JList(addAircraft().toArray());
         list.setVisibleRowCount(4);
         list.addMouseListener(this);
         JScrollPane scrollPane = new JScrollPane(list);
-        add(label,BorderLayout.NORTH);
-        add(scrollPane,BorderLayout.CENTER);
+        add(label, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
 
     }
+
     public ListAircrafts(List<Avion> avions) {
         setLayout(new BorderLayout());
         list = new JList(avions.toArray());
         list.setVisibleRowCount(4);
         list.addMouseListener(this);
         JScrollPane scrollPane = new JScrollPane(list);
-        add(label,BorderLayout.NORTH);
-        add(scrollPane,BorderLayout.CENTER);
+        add(label, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
 
     }
+
     public ListAircrafts(List<Avion> avions, Person person) {
         setLayout(new BorderLayout());
         list = new JList(avions.toArray());
         list.setVisibleRowCount(4);
         list.addMouseListener(this);
         JScrollPane scrollPane = new JScrollPane(list);
-        add(label,BorderLayout.NORTH);
-        add(scrollPane,BorderLayout.CENTER);
+        add(label, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
 
     }
 
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      list= (JList) e.getSource();
-        if ((e.getClickCount()==2)||(person.getDNI()!=12345678)){
+        list = (JList) e.getSource();
+        if ((e.getClickCount() == 2) || (person.getDNI() != 12345678)) {
 
-        setAvion((Avion) list.getSelectedValue());
+            setAvion((Avion) list.getSelectedValue());
         }
-      Object[] strings=  {"Delete", "add date" };
-        if ((e.getClickCount()==2)||(person.getDNI()==12345678)){
-             int menu_aircraft = JOptionPane.showOptionDialog(null, "", "menu aircraft", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, strings, strings);
-             {
-                 if (menu_aircraft==0){
-                     int delet = JOptionPane.showOptionDialog(null, "delete?", "menu aircraft", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Yes", "No"}, new String[]{"Yes", "No"});
-                    if (delet==0) {
-                      Avion a = (Avion) list.getSelectedValue();
-                      String  path=new String();
-                        switch (list.getSelectedValue().getClass().toString())
-                        {
+        Object[] strings = {"Delete", "add date"};
+        if ((e.getClickCount() == 2) || (person.getDNI() == 12345678)) {
+            int menu_aircraft = JOptionPane.showOptionDialog(null, "", "menu aircraft", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, strings, strings);
+            {
+                if (menu_aircraft == 0) {
+                    int delet = JOptionPane.showOptionDialog(null, "delete?", "menu aircraft", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Yes", "No"}, new String[]{"Yes", "No"});
+                    if (delet == 0) {
+                        Avion a = (Avion) list.getSelectedValue();
+                        String path = new String();
+                        switch (list.getSelectedValue().getClass().toString()) {
                             case "Gold":
 
                                 path = "C:\\air_taxi-guido\\src\\com\\company\\PlainFile\\Gold\\";
@@ -91,60 +92,63 @@ Person person;
 
                                 break;
                         }
-                        File file1 = new File( path+a.GetId()  + ".json");
+                        File file1 = new File(path + a.GetId() + ".json");
                         file1.delete();
                     }
-                 }
-                 if (menu_aircraft==1){
-
-                 }
-
-             }
-        }
-    }
-    public List <Avion> addAircraft() throws IOException {
-        List<Avion> avionList =new ArrayList<>();
-
-        String path1 = "C:\\air_taxi-guido\\src\\com\\company\\PlainFile\\Gold\\";
-        String path2 = "C:\\air_taxi-guido\\src\\com\\company\\PlainFile\\Bronze\\";
-        String  path3 = "C:\\air_taxi-guido\\src\\com\\company\\PlainFile\\Silver\\";
-
-        List<Avion> avions=new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
-        File file1=new File(path1);
-        if(file1.isDirectory()) {
-            File[] listfile1 = file1.listFiles();
-            for (File file : listfile1) {
-               Gold a = mapper.readValue(file, Gold.class);
-               avions.add(a);
-            }
-        }
- File  file2 = new File(path2);
-
-        if(file2.isDirectory()) {
-            File[] listfile2 = file2.listFiles();
-            for (File file : listfile2) {
-                Avion a = mapper.readValue(file, Avion.class);
-            avions.add(a);
-            }
-        }
-            File file3 = new File(path3);
-
-
-         if(file3.isDirectory()) {
-                File[] listfile3 = file3.listFiles();
-                for (File file : listfile3) {
-                  Avion a;
-
-                        a=mapper.readValue(file, Avion.class);
-                        avions.add(a);
-
+                }
+                if (menu_aircraft == 1) {
 
                 }
 
+            }
+        }
+    }
+
+    public List<Avion> addAircraft() throws IOException {
+        List<Avion> avionList = new ArrayList<>();
+
+        String path1 = "C:\\air_taxi-guido\\src\\com\\company\\PlainFile\\Gold\\";
+        String path2 = "C:\\air_taxi-guido\\src\\com\\company\\PlainFile\\Bronze\\";
+        String path3 = "C:\\air_taxi-guido\\src\\com\\company\\PlainFile\\Silver\\";
+
+        List<Avion> avions = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+        File file1 = new File(path1);
+      if (file1.isDirectory()) {
+            File[] listfile1 = file1.listFiles();
+            for (File file : listfile1) {
+                Avion a = mapper.readValue(file, com.company.Gold.class);
+                avions.add(a);
+            }
+        }
+
+        File file2 = new File(path2);
+
+        if (file2.isDirectory()) {
+            File[] listfile2 = file2.listFiles();
+            for (File file : listfile2) {
+                Avion a = mapper.readValue(file, Avion.class);
+                avions.add(a);
+            }
+        }
+        File file3 = new File(path3);
+
+
+        if (file3.isDirectory()) {
+            File[] listfile3 = file3.listFiles();
+            for (File file : listfile3) {
+                Avion a;
+
+                a = mapper.readValue(file, com.company.Silver.class);
+                avions.add(a);
+
 
             }
-                return avionList;
+
+
+        }
+        System.out.println(avionList);
+        return avionList;
     }
 
     @Override
